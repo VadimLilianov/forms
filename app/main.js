@@ -13,7 +13,8 @@ app.use(function (req, res, next) {
   next()
 })
 
+
 app.get('/', function (req, res) { res.redirect('home') })
 app.get('/home', pages.home);
-app.post('/calc', pages.calc);
+app.post('/calc', pages.calc); 
 module.exports = app;
