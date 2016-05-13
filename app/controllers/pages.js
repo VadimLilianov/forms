@@ -11,13 +11,31 @@ exports.home = function (req, res) {
   })
 }
 //Обработчик данных с формы
-exports.calc = function (req, res) {
-	api.createUser(req.body);
-	asd = api.getUser(req.body.login, function (asd){
-	console.log(asd)});
-	console.log(asd);
-	res.render('pages/calc', {
-      title: "Registration"
-    , message: 'Успех'
-  })
+exports.registration = function (req, res) {
+	api.createUser(req.body, res);	
+}
+
+exports.login = function (req, res, next) {
+	if (req.session.user) return res.redirect('/main');
+	api.checkUser (req.body)
+		.then(function(user){
+			if(user){
+				req.session.user = {id:user._id, name: user.login}
+				console.log(req.session.user);
+				res.redirect("/main");
+			}else
+				return next(error)
+		})
+	.catch(function(error){
+		return next(error)
+	})
+}
+
+exports.logout = function (req, res) {
+	if (req.session.user) {
+		console.log("deleting");
+		delete req.session.user;
+		console.log("deleted");
+		res.redirect('/home')
+	}
 }

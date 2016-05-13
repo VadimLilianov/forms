@@ -5,17 +5,21 @@ var User = require('c:/nodejs/app/models/User.js')
  
 // User API
  
-exports.createUser = function(userData){
+exports.createUser = function(userData,res){
 	var user = {
 		login: userData.login,
 		gender: userData.gender,
 		password: hash(userData.password)
 	}
-	return new User(user).save()
+	  User(user).save()
+	  res.render('pages/home', {
+      title: "Registration"
+    , message: 'Ваш логин: ' + userData.login
+  })
 }
  
 exports.getUser = function(login) {
-	User.findOne({login:login},		
+	return User.findOne({login:login},		
 			function(err, docs){				
 				console.log(docs.login);
 				}
@@ -26,7 +30,7 @@ exports.checkUser = function(userData) {
 	return User
 		.findOne({login: userData.login})
 		.then(function(doc){
-			if ( doc.password == hash(userData.password) ){
+			if (   (doc!=null) && (doc.password == hash(userData.password))){
 				console.log("User password is ok");
 				return Promise.resolve(doc)
 			} else {
