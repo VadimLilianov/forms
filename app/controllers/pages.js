@@ -22,6 +22,9 @@ exports.login = function (req, res, next) {
 			if(user){
 				req.session.user = {id:user._id, name: user.login}
 				console.log(req.session.user);
+				if (req.session.user.name == "admin")
+					res.redirect("/admin")
+				else
 				res.redirect("/main");
 			}else
 				return next(error)
@@ -38,4 +41,10 @@ exports.logout = function (req, res) {
 		console.log("deleted");
 		res.redirect('/home')
 	}
+}
+
+exports.admin = function(req,res) {
+	if (req.session.user.name == "admin")
+		api.getUsers(res);
+	else res.render('pages/main', {message : "Туда можна только админу"})
 }

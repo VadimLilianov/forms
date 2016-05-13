@@ -14,14 +14,14 @@ exports.createUser = function(userData,res){
 	  User(user).save()
 	  res.render('pages/home', {
       title: "Registration"
-    , message: 'Ваш логин: ' + userData.login
+    , message: "<br>"+ 'Ваш логин: ' +"</br>" + userData.login
   })
 }
  
-exports.getUser = function(login) {
-	return User.findOne({login:login},		
-			function(err, docs){				
-				console.log(docs.login);
+exports.getUsers = function(res) {
+	return User.find({},{login:1},		
+			function(err, docs){	
+				res.render('pages/admin', {message : docs})
 				}
 			);
 }

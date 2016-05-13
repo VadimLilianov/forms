@@ -32,6 +32,7 @@ app.get('/home', /*function (req,res) {
 app.post('/registration', pages.registration); 
 app.post('/login', pages.login);
 app.post('/logout', pages.logout);
+app.get('/admin', pages.admin);
 app.get('/main', function(req, res, next) {
 	if(req.session.user){
 		res.render('pages/main', {

@@ -1,0 +1,10 @@
+<div>
+<% for(var i=0; i < message.length; i++) { %>
+   <ul>
+     <li><%= message[i].login %></li>
+   </ul>
+<% } %>
+</div>
+<form action="/logout" method = "post">
+    <button type="submit">Logout</button>
+</form>
