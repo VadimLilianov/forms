@@ -1,0 +1,25 @@
+<% layout('../layout') -%>
+<form align= "center" name="calc" action="/update" method="post">
+<div><input type="hidden" name="id" value = <%= message._id %>></div>
+<div><input type="text" name="login" value = <%= message.login %>>Login</div>
+<div><input type="text" name="name" value = <%= message.name %>>Name</div>
+<div><input type="text" name="surname" value = <%= message.surname %>>Surname</div>
+<div><input type="text" name="phone" value = <%= message.phone %>>Phone</div>
+<div><input type="text" name="email" value = <%= message.email %>>Email</div>
+
+<% if (message.is_admin == true) { %>
+	<div><input type="checkbox" name="is_admin" checked>Администратор</div>
+<% } else { %>
+	<div><input type="checkbox" name="is_admin">Администратор</div>
+<% } %>
+
+<% if (message.gender == "male") { %>
+	<input type="radio" name="gender" value="male" checked>Мужской
+	<input type="radio" name="gender" value="female">Женский
+<% } else { %>
+	<input type="radio" name="gender" value="male" >Мужской
+	<input type="radio" name="gender" value="female" checked>Женский
+<% } %>
+
+<div><input align="center" type= "submit" value="Сохранить"></div>
+</form>

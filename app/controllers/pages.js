@@ -44,7 +44,34 @@ exports.logout = function (req, res) {
 }
 
 exports.admin = function(req,res) {
-	if (req.session.user.name == "admin")
+	if ((req.session.user!=undefined) && 
+	(req.session.user.name == "admin"))
 		api.getUsers(res);
 	else res.render('pages/main', {message : "Туда можна только админу"})
+}
+
+exports.main = function(req, res, next) {
+	if(req.session.user){
+		res.render('pages/main', {
+			title: 'Express',
+			user : req.session.user,
+			message : req.session.user.name
+		});
+	} else {
+		var data = {
+		  	title: 'Express',
+			message : "Вы не авторизированы"
+		}
+		res.render('pages/main', data);
+	}
+};
+
+exports.edit = function (req, res)
+{
+	api.getUser(req,res);
+}
+
+exports.update = function (req, res) 
+{
+	api.update(req, res);
 }

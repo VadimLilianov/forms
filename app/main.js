@@ -25,27 +25,13 @@ app.use(session({secret: 'i need more beers',
 }))
 
 app.get('/', function (req, res) { res.redirect('home') })
-app.get('/home', /*function (req,res) {
-	/*if (req.session.user)
-		res.redirect('main')
-	else */pages.home);
+app.get('/home', pages.home);
 app.post('/registration', pages.registration); 
 app.post('/login', pages.login);
 app.post('/logout', pages.logout);
 app.get('/admin', pages.admin);
-app.get('/main', function(req, res, next) {
-	if(req.session.user){
-		res.render('pages/main', {
-			title: 'Express',
-			user : req.session.user,
-			message : req.session.user.name
-		});
-	} else {
-		var data = {
-		  	title: 'Express',
-			message : "Вы не авторизированы"
-		}
-		res.render('pages/main', data);
-	}
-});
+app.get('/main', pages.main);
+app.post('/edit', pages.edit);
+app.post('/update', pages.update);
+
 module.exports = app;

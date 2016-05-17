@@ -1,9 +1,17 @@
 <div>
+<ul>
 <% for(var i=0; i < message.length; i++) { %>
-   <ul>
-     <li><%= message[i].login %></li>
-   </ul>
+   
+     <li>
+	 <form action= "/edit" method="post">
+		<div><input type='hidden' name = 'login' value = <%= message[i].login %>><%= message[i].login %>
+			 <button type="submit">Редактировать</button>
+		</div>
+	 </form>
+	 </li>
+   
 <% } %>
+</ul>
 </div>
 <form action="/logout" method = "post">
     <button type="submit">Logout</button>
